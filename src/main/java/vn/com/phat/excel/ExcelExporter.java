@@ -1,5 +1,6 @@
 package vn.com.phat.excel;
 
+import vn.com.phat.excel.exception.ExcelException;
 import vn.com.phat.excel.param.ExcelExporterParam;
 
 import java.io.OutputStream;
@@ -17,7 +18,7 @@ public interface ExcelExporter{
      *
      * @param outStream The OutputStream where the Excel file will be written. This is used to write the Excel file.
      * @param param The parameters for the export. This includes the data to be exported and any additional settings.
-     * @throws Exception If an error occurs during the export.
+     * @throws ExcelException If an error occurs during the export.
      */
-    void doExport(OutputStream outStream, ExcelExporterParam param) throws Exception;
+    void doExport(OutputStream outStream, ExcelExporterParam param) throws ExcelException;
 }

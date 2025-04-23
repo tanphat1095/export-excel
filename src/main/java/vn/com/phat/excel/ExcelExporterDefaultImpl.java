@@ -25,6 +25,7 @@ import vn.com.phat.excel.cellstyle.CellStyleHandler;
 import vn.com.phat.excel.cellstyle.CellStyleStringHandler;
 import vn.com.phat.excel.dto.ItemColsExcelDto;
 import vn.com.phat.excel.enumdef.JavaDataType;
+import vn.com.phat.excel.exception.ExcelException;
 import vn.com.phat.excel.param.ExcelExporterParam;
 import vn.com.phat.excel.param.ExcelExporterSheetParam;
 
@@ -51,7 +52,7 @@ import java.util.stream.Collectors;
  *
  * @param outStream The OutputStream where the Excel file will be written. This is used to write the Excel file.
  * @param param The parameters for the export. This includes the data to be exported and any additional settings.
- * @throws Exception If an error occurs during the export.
+ * @throws ExcelException If an error occurs during the export.
  * @author phatlt
  */
 @Slf4j
@@ -102,7 +103,7 @@ public class ExcelExporterDefaultImpl implements ExcelExporter {
     }
 
     @Override
-    public void doExport(OutputStream outStream, ExcelExporterParam param) throws Exception {
+    public void doExport(OutputStream outStream, ExcelExporterParam param) throws ExcelException {
         Assert.notNull(param, "The parameter for the export must not be null.");
         Assert.notNull(outStream, "The OutputStream for the export must not be null.");
         Assert.notNull(param.getTemplatePath(),"The template path must not be null.");
@@ -129,7 +130,8 @@ public class ExcelExporterDefaultImpl implements ExcelExporter {
             outStream.flush();
         } catch (Exception e) {
             log.error(e.getMessage(), e);
-            throw e;
+            Thread.currentThread().interrupt();
+            throw new ExcelException(e);
         }
     }
 
