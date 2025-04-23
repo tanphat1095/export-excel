@@ -95,12 +95,32 @@ public class ExcelExporterDefaultImpl implements ExcelExporter {
         Optional.ofNullable(cellStyleHandler).ifPresent(this.cellStyleHandler::putAll);
     }
 
+    /**
+     * Retrieves an existing sheet from the workbook by index if it is within the template sheet count,
+     * or creates a new sheet with the specified name if the index exceeds the template count.
+     *
+     * @param sheetParam the parameters for the sheet, including index and name
+     * @param workbook the workbook to retrieve or create the sheet in
+     * @param numberOfSheetTemplate the number of sheets present in the template
+     * @return the existing or newly created SXSSFSheet
+     */
     private SXSSFSheet getSheet(ExcelExporterSheetParam sheetParam, SXSSFWorkbook workbook, int numberOfSheetTemplate){
         return numberOfSheetTemplate > sheetParam.getSheetIndex()
                 ? workbook.getSheetAt(sheetParam.getSheetIndex())
                 : workbook.createSheet(sheetParam.getSheetName());
     }
 
+    /**
+     * Exports data to an Excel file using a template and writes the result to the provided output stream.
+     *
+     * <p>
+     * Validates input parameters and template file existence, processes each sheet concurrently, applies optional workbook consumers, and writes the final workbook to the output stream. Handles exceptions by interrupting the thread and throwing an {@link ExcelException}.
+     * </p>
+     *
+     * @param outStream the output stream to write the Excel file to
+     * @param param the export parameters, including template path and sheet definitions
+     * @throws ExcelException if an error occurs during the export process
+     */
     @Override
     public void doExport(OutputStream outStream, ExcelExporterParam param) throws ExcelException {
         Assert.notNull(param, "The parameter for the export must not be null.");
@@ -134,6 +154,15 @@ public class ExcelExporterDefaultImpl implements ExcelExporter {
         }
     }
 
+    /**
+     * Returns a consumer that submits sheet data export tasks to the provided executor service.
+     *
+     * The consumer sorts the given list of sheet parameters by their sheet index, obtains or creates the corresponding sheets in the workbook, and submits a runnable task for each sheet to populate it with data.
+     *
+     * @param sxssfWorkbook the streaming workbook to write data into
+     * @param executorService the executor service used for concurrent sheet processing
+     * @return a consumer that processes and submits sheet export tasks for a list of sheet parameters
+     */
     private Consumer<List<ExcelExporterSheetParam>> getListConsumer(SXSSFWorkbook sxssfWorkbook, ExecutorService executorService) {
         final int numberOfSheetTemplate = sxssfWorkbook.getNumberOfSheets();
         return sheets -> {
