@@ -49,10 +49,9 @@ import java.util.stream.Collectors;
 
 /**
  * Performs the export of data to an Excel file.
- *
- * @param outStream The OutputStream where the Excel file will be written. This is used to write the Excel file.
- * @param param The parameters for the export. This includes the data to be exported and any additional settings.
- * @throws ExcelException If an error occurs during the export.
+ * The OutputStream where the Excel file will be written. This is used to write the Excel file.
+ * The parameters for the export. This includes the data to be exported and any additional settings.
+ * throws ExcelException If an error occurs during the export.
  * @author phatlt
  */
 @Slf4j
