@@ -14,11 +14,11 @@ import java.io.OutputStream;
  */
 public interface ExcelExporter{
     /**
-     * Performs the export of data to an Excel file.
-     *
-     * @param outStream The OutputStream where the Excel file will be written. This is used to write the Excel file.
-     * @param param The parameters for the export. This includes the data to be exported and any additional settings.
-     * @throws ExcelException If an error occurs during the export.
-     */
+ * Exports data to an Excel file and writes the result to the provided output stream.
+ *
+ * @param outStream the output stream to which the Excel file content will be written
+ * @param param encapsulates the data and configuration for the export operation
+ * @throws ExcelException if an error occurs during the export process
+ */
     void doExport(OutputStream outStream, ExcelExporterParam param) throws ExcelException;
 }
