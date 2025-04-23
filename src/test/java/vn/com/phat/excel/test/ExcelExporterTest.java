@@ -44,7 +44,7 @@ public class ExcelExporterTest {
     // Additional action after the writing process has done.
     @Test
     public void test() throws Exception {
-        File file = new File("D:/test.xlsx");
+        File file = new File(getClass().getResource(".").getPath() + "/test.xlsx");
         try(FileOutputStream fos = new FileOutputStream(file)) {
             ExcelExporter exporter = getExcelExporter();
 
