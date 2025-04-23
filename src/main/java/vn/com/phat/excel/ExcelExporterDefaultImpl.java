@@ -138,7 +138,7 @@ public class ExcelExporterDefaultImpl implements ExcelExporter {
         final int numberOfSheetTemplate = sxssfWorkbook.getNumberOfSheets();
         return sheets -> {
             List<ExcelExporterSheetParam> sheetOrder = sheets.stream().sorted(
-                    Comparator.comparingInt(ExcelExporterSheetParam::getSheetIndex)).collect(Collectors.toList());
+                    Comparator.comparingInt(ExcelExporterSheetParam::getSheetIndex)).toList();
             for(ExcelExporterSheetParam sheet : sheetOrder){
                 SXSSFSheet workSheet = getSheet(sheet, sxssfWorkbook, numberOfSheetTemplate);
                 Runnable runnable = () -> setDataToSheet(sxssfWorkbook, workSheet, sheet);
