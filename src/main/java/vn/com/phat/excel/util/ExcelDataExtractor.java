@@ -33,7 +33,7 @@ public class ExcelDataExtractor {
         List<Field> fields = extractField(clazz);
         for(Field f : fields){
             try {
-                f.setAccessible(true);
+                f.setAccessible(true); //NOSONAR
                 final String name = f.getName();
                 final Object value = f.get(data);
                 map.put(name.toUpperCase(), value);
