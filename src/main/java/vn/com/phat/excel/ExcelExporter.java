@@ -17,7 +17,7 @@ public interface ExcelExporter{
  * Exports data to an Excel file and writes the result to the provided output stream.
  *
  * @param outStream the output stream to which the Excel file content will be written
- * @param param encapsulates the data and configuration for the export operation
+ * @param param the export parameters, including data and configuration settings
  * @throws ExcelException if an error occurs during the export process
  */
     void doExport(OutputStream outStream, ExcelExporterParam param) throws ExcelException;
