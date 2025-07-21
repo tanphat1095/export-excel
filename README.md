@@ -1,4 +1,4 @@
-# Export Excel Module
+# Export Excel
 
 A flexible and extensible Java library for exporting data to Excel files (`.xlsx`), supporting custom formatting, templates, and large data sets. Built on Apache POI SXSSF for performance and scalability.
 
@@ -24,7 +24,7 @@ Add the module to your Maven project:
 ```xml
 <dependency>
     <groupId>vn.com.phat.excel</groupId>
-    <artifactId>export-excel-module</artifactId>
+    <artifactId>export-excel</artifactId>
     <version>1.0.0-RELEASE</version>
 </dependency>
 ```
