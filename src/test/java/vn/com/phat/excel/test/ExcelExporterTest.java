@@ -44,6 +44,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.UUID;
 
 /**
@@ -116,7 +117,7 @@ public class ExcelExporterTest {
             List<ExcelExporterSheetParam> sheets = Arrays.asList(sheet, sheet2, sheet3, sheet4);
             ExcelExporterParam excelParam = ExcelExporterParamDefault.builder()
                     .consumer(workbook-> workbook.setSheetName(0, "FirstSheet"))
-                    .templatePath("D:/template.xlsx")
+                    .templatePath(Objects.requireNonNull(this.getClass().getClassLoader().getResource("template.xlsx")).getPath())
                     .sheets(sheets)
                     .build();
             long start = System.currentTimeMillis();
