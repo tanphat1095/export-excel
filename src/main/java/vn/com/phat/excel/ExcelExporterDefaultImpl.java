@@ -24,7 +24,6 @@ import org.apache.poi.xssf.streaming.SXSSFRow;
 import org.apache.poi.xssf.streaming.SXSSFSheet;
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.springframework.util.Assert;
 import vn.com.phat.excel.cellhandler.CellBigDecimalHandler;
 import vn.com.phat.excel.cellhandler.CellBooleanHandler;
 import vn.com.phat.excel.cellhandler.CellDataTypeHandler;
@@ -54,6 +53,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -138,11 +138,13 @@ public class ExcelExporterDefaultImpl implements ExcelExporter {
      */
     @Override
     public void doExport(OutputStream outStream, ExcelExporterParam param) throws ExcelException {
-        Assert.notNull(param, "The parameter for the export must not be null.");
-        Assert.notNull(outStream, "The OutputStream for the export must not be null.");
-        Assert.notNull(param.getTemplatePath(),"The template path must not be null.");
+        Objects.requireNonNull(param, "The parameter for the export must not be null.");
+        Objects.requireNonNull(outStream, "The OutputStream for the export must not be null.");
+        Objects.requireNonNull(param.getTemplatePath(), "The template path must not be null.");
         File file = new File(param.getTemplatePath());
-        Assert.isTrue(file.exists() && file.isFile(), "The template file does not exist.");
+        if (!file.exists() || !file.isFile()) {
+            throw new IllegalArgumentException("The template file does not exist.");
+        }
         try (
             FileInputStream in = new FileInputStream(file);
             XSSFWorkbook xssfWorkbook = new XSSFWorkbook(in);
