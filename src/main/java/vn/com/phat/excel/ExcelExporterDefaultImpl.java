@@ -88,13 +88,13 @@ public class ExcelExporterDefaultImpl implements ExcelExporter {
         this.cellDataHandler.put(JavaDataType.INT.name(), new CellIntegerHandler());
         this.cellDataHandler.put(JavaDataType.DATE.name(), new CellDateHandler());
         this.cellDataHandler.put(JavaDataType.TIMESTAMP.name(), new CellDateHandler());
-        this.cellDataHandler.put(JavaDataType.BIGDECIMAL.name(), new CellBigDecimalHandler());
+        this.cellDataHandler.put(JavaDataType.BIG_DECIMAL.name(), new CellBigDecimalHandler());
         this.cellDataHandler.put(JavaDataType.BOOLEAN.name(), new CellBooleanHandler());
 
         this.cellStyleMap = new ConcurrentHashMap<>();
         this.cellStyleHandler = new HashMap<>();
         this.cellStyleHandler.put(JavaDataType.DATE.name(), new CellStyleDateHandler());
-        this.cellStyleHandler.put(JavaDataType.BIGDECIMAL.name(), new CellStyleBigDecimalHandler());
+        this.cellStyleHandler.put(JavaDataType.BIG_DECIMAL.name(), new CellStyleBigDecimalHandler());
         this.cellStyleHandler.put(JavaDataType.STRING.name(), new CellStyleStringHandler());
         this.cellStyleHandler.put(JavaDataType.BOOLEAN.name(), new CellStyleBooleanHandler());
     }
